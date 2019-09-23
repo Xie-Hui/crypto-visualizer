@@ -16,7 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Checklist
 - [x] Scaffolding the project structure with `create-react-app`
 - [x] Setup the material-ui theme
-- [ ] Setup the basic Redux stores, reducers and actions
+- [x] Setup the basic Redux stores, reducers and actions
 - [ ] Fetching Data, cleanup, transformation and store update
 - [ ] Price Table UI/UX
 - [ ] Price Charts UI/UX

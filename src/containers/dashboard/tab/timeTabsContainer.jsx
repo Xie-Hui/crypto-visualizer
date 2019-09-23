@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
-import { MyTabs } from '../../../components/tab';
+import React from 'react';
+import { connect } from 'react-redux';
 
-const times = ['1H', '1D', '1W', '1M', '1Y', 'ALL'];
+import { MyTabs } from '../../../components/tab';
+import { DURATIONS } from '../../../constants/constants';
+import { APP_STATE, setCurrentDuration } from '../../../Redux/actions';
 
 const TimeTabsContainer = (props) => {
-    const [index, setIndex] = useState(0);
+    const { currentDuration, setCurrentDuration } = props;
     return (
         <MyTabs
-            tabs={times.map((item) => ({ label: item }))}
+            tabs={DURATIONS.keys.map((key) => DURATIONS[key])}
             maxwidth={0.5}
-            value={index}
-            onChange={(e, i) => setIndex(i)}
+            value={DURATIONS.keys.indexOf(currentDuration)}
+            onChange={(e, i) => {
+                setCurrentDuration(DURATIONS.keys[i]);
+            }}
         />
     );
 };
 
-export default TimeTabsContainer;
+const mapStateToProps = (state) => {
+    return {
+        currentDuration: state[APP_STATE].currentDuration
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    { setCurrentDuration }
+)(TimeTabsContainer);

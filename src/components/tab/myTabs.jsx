@@ -52,9 +52,9 @@ const MyTabs = ({ tabs, tabProps, ...props }) => {
             <Tabs variant={'fullWidth'} {...props} classes={tabsClasses}>
                 {tabs.map((tab) => (
                     <Tab
-                        key={tab.label}
+                        key={tab.name}
                         disableRipple
-                        {...tab}
+                        label={tab.name}
                         classes={{
                             ...tabClasses,
                             wrapper: `${tabClasses.wrapper} MuiTab-label`
@@ -69,7 +69,7 @@ const MyTabs = ({ tabs, tabProps, ...props }) => {
 MyTabs.propTypes = {
     tabs: PropTypes.arrayOf(
         PropTypes.shape({
-            label: PropTypes.node.isRequired
+            name: PropTypes.node.isRequired
         })
     ),
     tabProps: PropTypes.shape({})

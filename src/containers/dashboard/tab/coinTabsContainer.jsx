@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+
 import { MyTabs } from '../../../components/tab';
+import { setCurrentCoin, APP_STATE } from '../../../Redux/actions';
+import { COINS } from '../../../constants/constants';
 
 const CoinTabsContainer = (props) => {
-    const [index, setIndex] = useState(0);
+    const { currentCoin, setCurrentCoin } = props;
     return (
         <MyTabs
-            tabs={[
-                { label: 'Bitcoin' },
-                { label: 'Etherem' },
-                { label: 'Litecoin' },
-                { label: 'Ripple' }
-            ]}
-            value={index}
-            onChange={(e, i) => setIndex(i)}
+            tabs={COINS.keys.map((key) => COINS[key])}
+            value={COINS.keys.indexOf(currentCoin)}
+            onChange={(e, i) => {
+                setCurrentCoin(COINS.keys[i]);
+            }}
         />
     );
 };
 
-export default CoinTabsContainer;
+const mapStateToProps = (state) => {
+    return {
+        currentCoin: state[APP_STATE].currentCoin
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    { setCurrentCoin }
+)(CoinTabsContainer);
