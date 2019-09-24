@@ -1,8 +1,13 @@
-import React from 'react';
-import { Typography, Paper, Grid, Divider } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Tabbar from './tab/tabBar';
 import { Skeleton } from '@material-ui/lab';
+import { fetchPriceHistory } from '../../API/api';
+import { setHistoryData } from '../../Redux/actions';
+import ChartsContainer from './charts/chartsContainer';
 
 const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
     root: {
@@ -22,6 +27,16 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
 }));
 
 const DashboardContainer = (props) => {
+    const { setHistoryData } = props;
+
+    useEffect(() => {
+        fetchPriceHistory('BTC')
+            .then((data) => {
+                setHistoryData('BTC', data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
+
     const classes = useDashboardStyles();
     return (
         <Paper className={classes.root}>
@@ -39,11 +54,16 @@ const DashboardContainer = (props) => {
                     </Grid>
                 </Grid>
                 <div>
-                    <Skeleton disableAnimate={true} height={400} />
+                    <ChartsContainer />
                 </div>
             </div>
         </Paper>
     );
 };
 
-export default DashboardContainer;
+export default connect(
+    null,
+    {
+        setHistoryData
+    }
+)(DashboardContainer);
