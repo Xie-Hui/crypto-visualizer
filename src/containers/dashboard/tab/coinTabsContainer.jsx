@@ -18,11 +18,9 @@ const CoinTabsContainer = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        currentCoin: state[APP_STATE].currentCoin
-    };
-};
+const mapStateToProps = (state) => ({
+    currentCoin: state[APP_STATE].currentCoin
+});
 
 export default connect(
     mapStateToProps,

@@ -1,6 +1,10 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { APP_STATE } from '../../../Redux/actions';
+import Chart from '../../../components/chart/chart';
 
 const ChartsContainer = (props) => {
+    const { data } = props;
     const targetRef = useRef();
     const [dimensions, setDimensions] = useState({});
 
@@ -15,10 +19,24 @@ const ChartsContainer = (props) => {
         console.log(dimensions);
     }, [targetRef.current]);
     return (
-        <svg ref={targetRef}>
-            <div style={{ height: '100%' }}>teetetetet</div>
+        <svg ref={targetRef} style={{ width: '100%' }}>
+            {Object.keys(data).length > 0 ? (
+                <Chart
+                    color={'#666'}
+                    data={data['BTC']}
+                    height={dimensions.height}
+                    width={dimensions.width}
+                />
+            ) : null}
         </svg>
     );
 };
 
-export default ChartsContainer;
+const mapStateToProps = (state) => ({
+    data: state[APP_STATE].priceHistory
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(ChartsContainer);

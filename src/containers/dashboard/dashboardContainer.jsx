@@ -53,7 +53,7 @@ const DashboardContainer = (props) => {
                         <Skeleton disableAnimate={true} height={150} />
                     </Grid>
                 </Grid>
-                <div>
+                <div style={{ width: '100%' }}>
                     <ChartsContainer />
                 </div>
             </div>

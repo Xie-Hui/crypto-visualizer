@@ -19,11 +19,9 @@ const TimeTabsContainer = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        currentDuration: state[APP_STATE].currentDuration
-    };
-};
+const mapStateToProps = (state) => ({
+    currentDuration: state[APP_STATE].currentDuration
+});
 
 export default connect(
     mapStateToProps,

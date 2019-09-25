@@ -6,7 +6,7 @@ const url = 'https://crypto-visualizer-api.herokuapp.com/data/v2/histoday';
 
 const transformHistoryData = (dataArr) => {
     return dataArr.map(({ high, low, time }) => ({
-        time: new Date(time * 1000).toISOString(), // original time si unix time
+        time: new Date(time * 1000), // original time si unix time
         price: (high + low) / 2 //take average price
     }));
 };
