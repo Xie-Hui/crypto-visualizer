@@ -14,15 +14,9 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
     root: {
         backgroundColor: '#fff',
         borderRadius: '4px',
-        display: 'flex',
-        flexDirection: 'column',
-        margin: '0 auto',
+        margin: spacing(2),
         maxWidth: '1500px',
-        minWidth: '960px',
-        width: '90vw'
-    },
-    charts: {
-        padding: spacing(4)
+        minHeight: '80vh'
     }
 }));
 
@@ -40,9 +34,11 @@ const DashboardContainer = (props) => {
     const classes = useDashboardStyles();
     return (
         <Paper className={classes.root}>
-            <Tabbar />
-            <div className={classes.charts}>
-                <Grid container spacing={2}>
+            <Grid container flexDirection='column'>
+                <Grid item>
+                    <Tabbar />
+                </Grid>
+                <Grid item container spacing={2} flexDirection='row'>
                     <Grid item xs={4}>
                         <Skeleton disableAnimate={true} height={150} />
                     </Grid>
@@ -53,10 +49,14 @@ const DashboardContainer = (props) => {
                         <Skeleton disableAnimate={true} height={150} />
                     </Grid>
                 </Grid>
-                <div style={{ width: '100%' }}>
+                <Grid
+                    item
+                    zeroMinWidth
+                    style={{ width: '100%', minHeight: '300px', margin: '2rem' }}
+                >
                     <ChartsContainer />
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         </Paper>
     );
 };

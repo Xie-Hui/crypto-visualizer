@@ -30,7 +30,7 @@ const ChartsContainer = (props) => {
     console.log(targetRef.current);
 
     return (
-        <svg ref={targetRef} style={{ width: '100%', height: '200' }}>
+        <svg ref={targetRef} style={{ width: '100%', height: '100%' }}>
             {Object.keys(data).length > 0 ? (
                 <Chart
                     color={'#666'}

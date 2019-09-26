@@ -1,9 +1,33 @@
 // Supported cryptocurrencies
 const COINS = {
-    BTC: { key: 'btc', name: 'Bitcoin', fillColor: '#FFEBC5', strokeColor: '#FFB01E' },
-    BCH: { key: 'bch', name: 'Bitcoin Cash', fillColor: '#e2f0d2', strokeColor: '#8DC451' },
-    ETH: { key: 'eth', name: 'Ethereum', fillColor: '#F0F1F8', strokeColor: '#6E7CB9' },
-    LTC: { key: 'ltc', name: 'Litecoin', fillColor: '#ECECEC', strokeColor: '#B5B5B5' },
+    BTC: {
+        key: 'btc',
+        name: 'Bitcoin',
+        fillColor: '#FFEBC5',
+        strokeColor: '#FFB01E',
+        icon: () => {}
+    },
+    BCH: {
+        key: 'bch',
+        name: 'Bitcoin Cash',
+        fillColor: '#e2f0d2',
+        strokeColor: '#8DC451',
+        icon: () => {}
+    },
+    ETH: {
+        key: 'eth',
+        name: 'Ethereum',
+        fillColor: '#F0F1F8',
+        strokeColor: '#6E7CB9',
+        icon: () => {}
+    },
+    LTC: {
+        key: 'ltc',
+        name: 'Litecoin',
+        fillColor: '#ECECEC',
+        strokeColor: '#B5B5B5',
+        icon: () => {}
+    },
     keys: ['BTC', 'BCH', 'ETH', 'LTC']
 };
 

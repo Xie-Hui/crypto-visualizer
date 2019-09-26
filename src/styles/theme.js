@@ -14,27 +14,24 @@ const globalStyle = (theme) => ({
         },
 
         'html, body': {
-            minHeight: '100vh'
+            minHeight: '100vh',
+            width: '100vw'
         },
 
         body: {
-            display: 'flex',
+            //display: 'flex',
             margin: 0,
             padding: 0,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
+            //flexDirection: 'column',
+            //alignItems: 'center',
+            //justifyContent: 'center',
             backgroundColor: theme.color.bg,
             '-moz-osx-font-smoothing': 'grayscale',
             '-webkit-font-smoothing': 'antialiased'
         },
 
         '#root': {
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            flex: [1, 1, '100%']
+            minHeight: '100vh'
         }
     }
 });
