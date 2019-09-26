@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Paper, Grid } from '@material-ui/core';
@@ -19,7 +20,6 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
         maxWidth: '1500px',
         minWidth: '960px',
         width: '90vw'
-        //height: '470px'
     },
     charts: {
         padding: spacing(4)
@@ -59,6 +59,15 @@ const DashboardContainer = (props) => {
             </div>
         </Paper>
     );
+};
+
+DashboardContainer.propTypes = {
+    setHistoryData: PropTypes.arrayOf(
+        PropTypes.shape({
+            price: PropTypes.number,
+            time: PropTypes.instanceOf(Date)
+        })
+    )
 };
 
 export default connect(

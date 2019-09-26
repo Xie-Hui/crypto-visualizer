@@ -9,14 +9,14 @@ import {
     select
 } from 'd3';
 
-const CHART_PADDING_TOP = 50;
+const CHART_PADDING_BOTTOM = 20;
 
 const scaleData = (data, height, width) => {
     console.log('Scale DAta');
     console.log({ height, width });
 
     const scalePriceToY = scaleLinear()
-        .range([height, 0])
+        .range([height, CHART_PADDING_BOTTOM])
         .domain(extent(data, (d) => d.price));
 
     const scaleTimeToX = scaleTime()
@@ -62,7 +62,8 @@ const Chart = (props) => {
                 .append('path')
                 .attr('d', lineChart)
                 .attr('fill', 'none')
-                .style('stroke', 'red');
+                .style('stroke', 'grey')
+                .style('stroke-width', '2px');
         }
     }, [color, data, height, width]);
 
