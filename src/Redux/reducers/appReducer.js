@@ -1,8 +1,14 @@
-import { SET_CURRENT_COIN, SET_CURRENT_DURATION, SET_HISTORY_DATA } from '../actions';
+import {
+    SET_CURRENT_COIN,
+    SET_CURRENT_DURATION,
+    SET_CURRENT_CURRENCY,
+    SET_HISTORY_DATA
+} from '../actions';
 
 const defaultState = {
     currentCoin: 'BTC',
     currentDuration: 'WEEK',
+    currentCurrency: 'USD',
     priceHistory: {},
     spotPrices: []
 };
@@ -14,6 +20,8 @@ const app = (state = defaultState, action) => {
             return { ...state, currentCoin: payload };
         case SET_CURRENT_DURATION:
             return { ...state, currentDuration: payload };
+        case SET_CURRENT_CURRENCY:
+            return { ...state, currentCurrency: payload };
         case SET_HISTORY_DATA:
             return {
                 ...state,

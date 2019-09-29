@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import Tabbar from './tab/tabBar';
 import { Skeleton } from '@material-ui/lab';
 import { fetchPriceHistory } from '../../API/api';
-import { setHistoryData } from '../../Redux/actions';
+import { setHistoryData, APP_STATE } from '../../Redux/actions';
 import ChartsContainer from './charts/chartsContainer';
 
 const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
@@ -27,15 +27,15 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
 }));
 
 const DashboardContainer = (props) => {
-    const { setHistoryData } = props;
+    const { currentCoin, currentDuration, currentCurrency, setHistoryData } = props;
 
     useEffect(() => {
-        fetchPriceHistory('BTC')
+        fetchPriceHistory(currentCoin, currentCurrency, currentDuration)
             .then((data) => {
-                setHistoryData('BTC', data);
+                setHistoryData(currentCoin, data);
             })
             .catch((error) => console.log(error));
-    }, []);
+    }, [currentDuration, currentCoin]);
 
     const classes = useDashboardStyles();
     return (
@@ -61,17 +61,14 @@ const DashboardContainer = (props) => {
     );
 };
 
-DashboardContainer.propTypes = {
-    setHistoryData: PropTypes.arrayOf(
-        PropTypes.shape({
-            price: PropTypes.number,
-            time: PropTypes.instanceOf(Date)
-        })
-    )
-};
+const mapStateToProps = (state) => ({
+    currentCoin: state[APP_STATE].currentCoin,
+    currentDuration: state[APP_STATE].currentDuration,
+    currentCurrency: state[APP_STATE].currentCurrency
+});
 
 export default connect(
-    null,
+    mapStateToProps,
     {
         setHistoryData
     }

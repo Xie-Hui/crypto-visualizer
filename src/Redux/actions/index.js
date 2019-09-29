@@ -1,6 +1,7 @@
 export const APP_STATE = 'APP_STATE';
 export const SET_CURRENT_COIN = 'SET_CURRENT_COIN';
 export const SET_CURRENT_DURATION = 'SET_CURRENT_DURATION';
+export const SET_CURRENT_CURRENCY = 'SET_CURRENT_CURRENCY';
 export const SET_HISTORY_DATA = 'SET_HISTORY_DATA';
 
 export const setCurrentCoin = (name) => ({
@@ -11,6 +12,11 @@ export const setCurrentCoin = (name) => ({
 export const setCurrentDuration = (duration) => ({
     type: SET_CURRENT_DURATION,
     payload: duration
+});
+
+export const setCurrentCurrency = (currency) => ({
+    type: SET_CURRENT_CURRENCY,
+    payload: currency
 });
 
 export const setHistoryData = (coin, data) => ({

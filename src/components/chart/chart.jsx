@@ -9,14 +9,15 @@ import {
     select
 } from 'd3';
 
-const CHART_PADDING_BOTTOM = 20;
+const CHART_PADDING_TOP = 50;
+const CHART_PADDING_BOTTOM = 10;
 
 const scaleData = (data, height, width) => {
     console.log('Scale DAta');
     console.log({ height, width });
 
     const scalePriceToY = scaleLinear()
-        .range([height, CHART_PADDING_BOTTOM])
+        .range([height - CHART_PADDING_BOTTOM, CHART_PADDING_TOP])
         .domain(extent(data, (d) => d.price));
 
     const scaleTimeToX = scaleTime()
