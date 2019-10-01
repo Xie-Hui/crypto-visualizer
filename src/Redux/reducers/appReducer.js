@@ -2,14 +2,16 @@ import {
     SET_CURRENT_COIN,
     SET_CURRENT_DURATION,
     SET_CURRENT_CURRENCY,
-    SET_HISTORY_DATA
+    SET_HISTORY_DATA,
+    SET_LAST_TIMESTAMP
 } from '../actions';
 
 const defaultState = {
     currentCoin: 'BTC',
     currentDuration: 'WEEK',
     currentCurrency: 'USD',
-    priceHistory: {},
+    priceHistory: [],
+    lastTimestamp: null, // the latest timestamp for data change indicator
     spotPrices: []
 };
 
@@ -22,13 +24,13 @@ const app = (state = defaultState, action) => {
             return { ...state, currentDuration: payload };
         case SET_CURRENT_CURRENCY:
             return { ...state, currentCurrency: payload };
+        case SET_LAST_TIMESTAMP:
+            return { ...state, lastTimestamp: payload };
         case SET_HISTORY_DATA:
             return {
                 ...state,
-                priceHistory: {
-                    ...state.priceHistory,
-                    [payload.coin]: payload.data
-                }
+                priceHistory: payload.data,
+                lastTimestamp: payload.data[payload.data.length - 1].time
             };
         default:
             return state;

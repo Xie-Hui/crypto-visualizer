@@ -3,6 +3,7 @@ export const SET_CURRENT_COIN = 'SET_CURRENT_COIN';
 export const SET_CURRENT_DURATION = 'SET_CURRENT_DURATION';
 export const SET_CURRENT_CURRENCY = 'SET_CURRENT_CURRENCY';
 export const SET_HISTORY_DATA = 'SET_HISTORY_DATA';
+export const SET_LAST_TIMESTAMP = 'SET_LAST_TIMESTAMP';
 
 export const setCurrentCoin = (name) => ({
     type: SET_CURRENT_COIN,
@@ -19,7 +20,12 @@ export const setCurrentCurrency = (currency) => ({
     payload: currency
 });
 
-export const setHistoryData = (coin, data) => ({
+export const setHistoryData = (data) => ({
     type: SET_HISTORY_DATA,
-    payload: { coin, data }
+    payload: { data }
+});
+
+export const setLastTimestamp = (timestamp) => ({
+    type: SET_LAST_TIMESTAMP,
+    payload: timestamp
 });

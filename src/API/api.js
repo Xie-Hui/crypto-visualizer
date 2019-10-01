@@ -40,18 +40,29 @@ const convertDurationToDate = (duration) => {
             date.subtract('years', 1);
             break;
         default:
-            date.subtract('years', 10);
+            date.subtract('years', 6);
             break;
     }
     return date;
 };
 
+const binarySearch = (left, right, target, arr) => {
+    let mid = (left + right) >> 1;
+
+    if (mid === left || mid === right || (arr[mid].time <= target && arr[mid + 1].time > target)) {
+        return mid;
+    } else if (arr[mid].time > target) {
+        return binarySearch(left, mid, target, arr);
+    } else {
+        return binarySearch(mid + 1, right, target, arr);
+    }
+};
+
 const dataWithinDuration = (data, duration) => {
     const date = convertDurationToDate(duration);
-    const filteredData = data.filter(({ time }) => time > date);
-    console.log(duration, date);
-    console.log(filteredData.length);
-    console.log(data.length);
+    // binary search to locate index
+    const index = binarySearch(0, data.length, date, data);
+    const filteredData = data.slice(index);
     return filteredData;
 };
 
@@ -65,6 +76,12 @@ const fetchPriceHistory = async (coin, currency = 'USD', duration = 'DAY') => {
             url += prefix_minute;
             break;
         case 'WEEK':
+            url += prefix_minute;
+            break;
+        case 'MONTH':
+            url += prefix_hour;
+            break;
+        case 'YEAR':
             url += prefix_hour;
             break;
         default:
@@ -76,14 +93,26 @@ const fetchPriceHistory = async (coin, currency = 'USD', duration = 'DAY') => {
         params: {
             fsym: coin,
             tsym: currency,
-            allData: true,
+            //aggregate: 5,
+            //...(duration === 'ALL' && { allData: true }),
+            ...(duration === 'ALL' && { aggregate: 1 }),
+            ...(duration === 'YEAR' && { aggregate: 2 }),
             limit: 2000
-        },
-        headers: {
-            'Access-Control-Allow-Headers': 'X-Requested-Width'
         }
     });
-    return transformHistoryData(data.Data.Data);
+
+    /* console.log(
+        'time from: ',
+        moment.unix(data.Data.TimeFrom).format('dddd, MMMM Do YYYY, h:mm:ss a')
+    );
+    console.log(
+        'time to:   ',
+        moment.unix(data.Data.TimeTo).format('dddd, MMMM Do YYYY, h:mm:ss a')
+    ); */
+    let transformedData = transformHistoryData([...data.Data.Data]);
+    const targetData = dataWithinDuration(transformedData, duration);
+    console.log('data points: ', targetData.length);
+    return targetData;
 };
 
-export { fetchPriceHistory, dataWithinDuration };
+export { fetchPriceHistory };
