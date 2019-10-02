@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import withWidth from '@material-ui/core/withWidth';
 import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Tabbar from './tab/tabBar';
@@ -17,8 +18,8 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
         display: 'flex',
         flexDirection: 'column',
         margin: '0 auto',
-        maxWidth: '1500px',
-        minWidth: '960px',
+        maxWidth: '1200px',
+        //minWidth: '560px',
         width: '90vw'
     },
     charts: {
@@ -27,13 +28,7 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
 }));
 
 const DashboardContainer = (props) => {
-    const {
-        currentCoin,
-        currentDuration,
-        currentCurrency,
-        setHistoryData,
-        setLastTimestamp
-    } = props;
+    const { currentCoin, currentDuration, currentCurrency, setHistoryData, width } = props;
 
     useEffect(() => {
         fetchPriceHistory(currentCoin, currentCurrency, currentDuration)
@@ -48,23 +43,24 @@ const DashboardContainer = (props) => {
     }, [currentCoin, currentDuration, currentCurrency]);
 
     const classes = useDashboardStyles();
+
     return (
         <Paper className={classes.root}>
             <Tabbar />
             <div className={classes.charts}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={150} />
+                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
                     </Grid>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={150} />
+                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
                     </Grid>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={150} />
+                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
                     </Grid>
                 </Grid>
                 <div style={{ width: '100%' }}>
-                    <ChartsContainer />
+                    <ChartsContainer height={width === 'xs' ? '200' : '300'} />
                 </div>
             </div>
         </Paper>
@@ -83,4 +79,4 @@ export default connect(
         setHistoryData,
         setLastTimestamp
     }
-)(DashboardContainer);
+)(withWidth()(DashboardContainer));

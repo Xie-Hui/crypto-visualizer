@@ -21,7 +21,7 @@ const DURATIONS = {
     WEEK: { name: '1W', friendly: 'since last week' },
     MONTH: { name: '1M', friendly: 'since last month' },
     YEAR: { name: '1Y', friendly: 'since last year' },
-    ALL: { name: 'ALL', friendly: '' },
+    ALL: { name: 'ALL', friendly: 'all time' },
     keys: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR', 'ALL']
 };
 

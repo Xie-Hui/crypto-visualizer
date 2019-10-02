@@ -30,7 +30,7 @@ const app = (state = defaultState, action) => {
             return {
                 ...state,
                 priceHistory: payload.data,
-                lastTimestamp: payload.data[payload.data.length - 1].time
+                lastTimestamp: new Date()
             };
         default:
             return state;

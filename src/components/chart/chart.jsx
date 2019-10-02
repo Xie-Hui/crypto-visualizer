@@ -3,7 +3,6 @@ import {
     area as d3Area,
     line as d3Line,
     easeCubicOut,
-    easeCubicInOut,
     extent,
     scaleLinear,
     scaleTime,
@@ -16,7 +15,7 @@ import { usePrevious } from '../../utils/customHooks';
 
 const CHART_PADDING_TOP = 50;
 const CHART_PADDING_BOTTOM = 10;
-const TRANSITION = { delay: 300, duration: 500, ease: easeCubicInOut };
+const TRANSITION = { delay: 300, duration: 500, ease: easeCubicOut };
 
 const scaleData = (data, height, width) => {
     const scalePriceToY = scaleLinear()
@@ -36,6 +35,7 @@ const scaleData = (data, height, width) => {
 const Chart = (props) => {
     const { color, data, height, width, timestamp } = props;
     const prevData = usePrevious(data) || data; // previous data, default to current data if not exist
+    const prevColor = usePrevious(color) || color;
     const targetRef = useRef();
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const Chart = (props) => {
             chart
                 .append('path')
                 .attr('d', areaChart)
-                .style('fill', color.fill)
+                .style('fill', prevColor.fill)
                 // transition
                 .transition()
                 .duration(TRANSITION.duration)
@@ -76,7 +76,7 @@ const Chart = (props) => {
                 .append('path')
                 .attr('d', lineChart)
                 .attr('fill', 'none')
-                .style('stroke', 'grey')
+                .style('stroke', prevColor.stroke)
                 .style('stroke-width', '2px')
                 // transition
                 .transition()

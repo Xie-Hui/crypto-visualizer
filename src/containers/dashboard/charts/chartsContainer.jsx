@@ -1,11 +1,12 @@
 import React, { useLayoutEffect, useRef, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { APP_STATE } from '../../../Redux/actions';
+
 import Chart from '../../../components/chart/chart';
 import { COINS } from '../../../constants/constants';
 
 const ChartsContainer = (props) => {
-    const { data, currentCoin, lastTimestamp } = props;
+    const { data, currentCoin, lastTimestamp, height } = props;
     const targetRef = useRef(null);
     const [dimensions, setDimensions] = useState({});
 
@@ -20,6 +21,7 @@ const ChartsContainer = (props) => {
 
     // add and remove resize listener
     useLayoutEffect(() => {
+        console.log('handle resize!');
         handleResize();
 
         //add/remove resize listener
@@ -28,10 +30,9 @@ const ChartsContainer = (props) => {
             window.removeEventListener('resize', handleResize);
         };
     }, [targetRef.current]);
-    console.log(targetRef.current);
 
     return (
-        <svg ref={targetRef} style={{ width: '100%', height: '300' }}>
+        <svg ref={targetRef} style={{ width: '100%', height: height }}>
             {Object.keys(data).length > 0 && data ? (
                 <Chart
                     color={{
