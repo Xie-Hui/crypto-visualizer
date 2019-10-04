@@ -25,4 +25,6 @@ const DURATIONS = {
     keys: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR', 'ALL']
 };
 
-export { COINS, CURRENCY, DURATIONS };
+const DEFAULT_TICK_COUNT = 7;
+
+export { COINS, CURRENCY, DURATIONS, DEFAULT_TICK_COUNT };

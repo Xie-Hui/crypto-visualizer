@@ -13,7 +13,7 @@ import 'd3-transition';
 
 import { usePrevious } from '../../utils/customHooks';
 
-const CHART_PADDING_TOP = 50;
+const CHART_PADDING_TOP = 20;
 const CHART_PADDING_BOTTOM = 10;
 const TRANSITION = { delay: 300, duration: 500, ease: easeCubicOut };
 

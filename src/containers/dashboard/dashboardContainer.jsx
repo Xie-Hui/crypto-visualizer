@@ -18,8 +18,8 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
         display: 'flex',
         flexDirection: 'column',
         margin: '0 auto',
-        maxWidth: '1200px',
-        //minWidth: '560px',
+        maxWidth: '1800px',
+        minWidth: '900px',
         width: '90vw'
     },
     charts: {
@@ -36,10 +36,6 @@ const DashboardContainer = (props) => {
                 setHistoryData(data);
             })
             .catch((error) => console.log(error));
-        /* const timer = setTimeout(() => {
-            console.log('This will run after 1 second!');
-        }, 0);
-        return () => clearTimeout(timer); */
     }, [currentCoin, currentDuration, currentCurrency]);
 
     const classes = useDashboardStyles();
@@ -50,17 +46,17 @@ const DashboardContainer = (props) => {
             <div className={classes.charts}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
+                        <Skeleton disableAnimate={true} height={125} />
                     </Grid>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
+                        <Skeleton disableAnimate={true} height={125} />
                     </Grid>
                     <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={width === 'xs' ? 75 : 125} />
+                        <Skeleton disableAnimate={true} height={125} />
                     </Grid>
                 </Grid>
                 <div style={{ width: '100%' }}>
-                    <ChartsContainer height={width === 'xs' ? '200' : '300'} />
+                    <ChartsContainer height={'250px'} />
                 </div>
             </div>
         </Paper>
