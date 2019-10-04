@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { Tabs, Tab, Typography } from '@material-ui/core';
 
 const useTabsStyles = makeStyles((theme) => ({
     root: {
@@ -37,11 +36,11 @@ const useTabStyles = makeStyles(({ palette, breakpoints }) => ({
         opacity: 1
     },
     wrapper: {
-        textTransform: 'none',
-        fontSize: 15,
+        textTransform: 'none'
+        /*         fontSize: 15,
         fontWeight: 700,
         whiteSpace: 'nowrap',
-        color: palette.text.secondary
+        color: palette.text.secondary */
     }
 }));
 
@@ -55,7 +54,11 @@ const MyTabs = ({ tabs, tabProps, ...props }) => {
                     <Tab
                         key={tab.name}
                         disableRipple
-                        label={tab.name}
+                        label={
+                            <Typography color='textSecondary' variant='body1' noWrap>
+                                {tab.name}
+                            </Typography>
+                        }
                         classes={{
                             ...tabClasses,
                             wrapper: `${tabClasses.wrapper} MuiTab-label`

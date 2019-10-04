@@ -43,7 +43,6 @@ const ChartsContainer = (props) => {
 
     // add and remove resize listener
     useLayoutEffect(() => {
-        console.log('handle resize!');
         handleResize();
 
         //add/remove resize listener

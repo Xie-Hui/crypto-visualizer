@@ -35,7 +35,6 @@ const generateTimeAxisTicks = (data, tickCount) => {
     const [minTime, maxTime] = extent(data, (d) => d.time);
     const rangeStep = (maxTime - minTime) / (tickCount - 1);
     const time = new Date(minTime).valueOf();
-    console.log(time, rangeStep);
     let generatedTicks = [];
     for (let i = 0; i < tickCount; i++) {
         generatedTicks.push(time + i * rangeStep);
@@ -47,7 +46,6 @@ const HorizontalChartAxis = (props) => {
     const { data, duration, tickCount = DEFAULT_TICK_COUNT } = props;
     const classes = useStyles();
     const axisTicks = generateTimeAxisTicks(data, tickCount);
-    console.log(tickCount, axisTicks);
     return (
         <Grid container justify='space-between' className={classes.horizontalChartAxis}>
             {axisTicks &&

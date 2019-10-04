@@ -40,8 +40,6 @@ const Chart = (props) => {
 
     useEffect(() => {
         if (height && width && timestamp && color) {
-            console.log('previous:', prevData.length);
-            console.log('current:', data.length);
             const chart = select(targetRef.current);
             const area = d3Area()
                 .x((d) => d.time)
