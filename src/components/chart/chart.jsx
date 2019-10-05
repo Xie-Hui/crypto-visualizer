@@ -12,9 +12,8 @@ import { interpolatePath } from 'd3-interpolate-path';
 import 'd3-transition';
 
 import { usePrevious } from '../../utils/customHooks';
+import { CHART_PADDING_BOTTOM, CHART_PADDING_TOP } from '../../constants/constants';
 
-const CHART_PADDING_TOP = 20;
-const CHART_PADDING_BOTTOM = 10;
 const TRANSITION = { delay: 300, duration: 500, ease: easeCubicOut };
 
 const scaleData = (data, height, width) => {

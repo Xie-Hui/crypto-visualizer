@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 const transformHistoryData = (dataArr) => {
-    return dataArr.map(({ time, price }) => ({
-        time: new Date(time),
-        price: +price // convert to number
-    }));
+    return dataArr
+        .map(({ time, price }) => ({
+            time: new Date(time),
+            price: +price // convert to number
+        }))
+        .sort((a, b) => a.time - b.time);
 };
 
 const fetchPriceHistory = async (coin, currency = 'USD', duration = 'DAY') => {

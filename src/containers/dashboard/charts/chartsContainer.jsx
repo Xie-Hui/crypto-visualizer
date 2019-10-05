@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { APP_STATE } from '../../../Redux/actions';
 
 import Chart from '../../../components/chart/chart';
-import { COINS } from '../../../constants/constants';
+import { COINS, CHART_PADDING_TOP, CHART_PADDING_BOTTOM } from '../../../constants/constants';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import VerticalChartAxis from '../../../components/chart/chartAxis/verticalChartAxis';
 import HorizontalChartAxis from '../../../components/chart/chartAxis/horizontalChartAxis';
+
+import { extent, scaleLinear } from 'd3';
+import { formatCurrency } from '../../../utils/formatCurrency';
+import HoverPrice from '../../../components/hoverPrice/hoverPrice';
+import Cursor from '../../../components/hoverPrice/cursor';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
     topSection: {
@@ -28,18 +33,22 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
 
 const ChartsContainer = (props) => {
     const { data, currentCoin, lastTimestamp, height, currentCurrency, duration } = props;
-    const targetRef = useRef(null);
+    const chartSvgComponentRef = useRef(null);
     const [dimensions, setDimensions] = useState({});
+    const [hoverState, setHoverState] = useState({});
+
     const classes = useStyles({ height });
 
     const handleResize = useCallback(() => {
-        const { height, width } = targetRef.current.getBoundingClientRect();
+        console.log('handleResize!');
+        const { height, width, left } = chartSvgComponentRef.current.getBoundingClientRect();
         const dimensions = {
             height: Math.round(height),
-            width: Math.round(width)
+            width: Math.round(width),
+            left: Math.round(left)
         };
         setDimensions(dimensions);
-    }, [targetRef]);
+    }, [chartSvgComponentRef]);
 
     // add and remove resize listener
     useLayoutEffect(() => {
@@ -50,8 +59,53 @@ const ChartsContainer = (props) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [targetRef.current]);
+    }, [chartSvgComponentRef.current]);
 
+    const showHoverElement = () => {
+        setHoverState({
+            ...hoverState,
+            hovered: true
+        });
+    };
+
+    const hideHoverElement = () => {
+        setHoverState({
+            ...hoverState,
+            hovered: false
+        });
+    };
+
+    const scalePriceToY = scaleLinear()
+        .range([dimensions.height - CHART_PADDING_BOTTOM, CHART_PADDING_TOP])
+        .domain(extent(data, (d) => d.price));
+
+    const updateHoverPosition = (e) => {
+        const hoverX = e.nativeEvent.clientX - dimensions.left;
+        const index = Math.round((hoverX / dimensions.width) * (data.length - 1));
+        const hoveredDataPoint = data[index] || {};
+        const hoveredValue = {
+            price:
+                hoveredDataPoint.price && formatCurrency(hoveredDataPoint.price, currentCurrency),
+            time: hoveredDataPoint.time && hoveredDataPoint.time.toLocaleString()
+        };
+
+        const hoverY = scalePriceToY(hoveredDataPoint.price) || 0;
+
+        console.log('hovered: ', hoverState.hovered);
+        console.log('cursor position: ', hoverX, hoverY);
+        const { hoverX: prevX, hoverY: prevY } = hoverState;
+        console.log('current, prev: ', hoverX, prevX);
+        if (!prevX || !prevY || Math.abs(hoverX - prevX) > 10 || Math.abs(hoverY - prevY) > 10) {
+            setHoverState({
+                hovered: Boolean(hoveredDataPoint),
+                hoveredValue,
+                hoverX,
+                hoverY
+            });
+        }
+    };
+
+    const { hovered, hoveredValue, hoverX, hoverY } = hoverState;
     return (
         <div>
             <Grid className={classes.topSection} container direction='row' wrap='nowrap'>
@@ -59,19 +113,41 @@ const ChartsContainer = (props) => {
                     <VerticalChartAxis data={data} currency={currentCurrency} textAlign='right' />
                 </Grid>
                 <Grid item className={classes.priceChart} height={height}>
-                    <svg ref={targetRef} style={{ width: '100%', height: '100%' }}>
-                        {Object.keys(data).length > 0 && data ? (
-                            <Chart
-                                color={{
-                                    fill: COINS[currentCoin].fillColor,
-                                    stroke: COINS[currentCoin].strokeColor
-                                }}
-                                data={data}
-                                timestamp={lastTimestamp}
-                                height={dimensions.height}
-                                width={dimensions.width}
-                            />
-                        ) : null}
+                    <HoverPrice
+                        top
+                        value={hoveredValue && hoveredValue.price}
+                        visible={hovered}
+                        x={hoverX}
+                    />
+                    <HoverPrice
+                        bottom
+                        value={hoveredValue && hoveredValue.time}
+                        visible={hovered}
+                        x={hoverX}
+                    />
+                    <svg
+                        ref={chartSvgComponentRef}
+                        style={{ width: '100%', height: '100%' }}
+                        onMouseEnter={showHoverElement}
+                        onMouseLeave={hideHoverElement}
+                        onMouseMove={updateHoverPosition}
+                    >
+                        <Chart
+                            color={{
+                                fill: COINS[currentCoin].fillColor,
+                                stroke: COINS[currentCoin].strokeColor
+                            }}
+                            data={data}
+                            timestamp={lastTimestamp}
+                            height={dimensions.height}
+                            width={dimensions.width}
+                        />
+                        <Cursor
+                            height={dimensions.height}
+                            visible={hovered}
+                            x={hoverX}
+                            y={hoverY}
+                        />
                     </svg>
                 </Grid>
                 <Grid item>

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import currencyFormatter from 'currency-formatter';
+
 import { extent } from 'd3';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
+
+import { formatCurrency } from '../../../utils/formatCurrency';
 
 const useStyles = makeStyles(({ spacing }) => ({
     verticalAxis: {
@@ -15,13 +17,6 @@ const useStyles = makeStyles(({ spacing }) => ({
     }
 }));
 
-const formatAxisPrice = (price, currencyCode) => {
-    return currencyFormatter.format(price, {
-        code: currencyCode.toUpperCase(),
-        precision: 0
-    });
-};
-
 const VerticalChartAxis = (props) => {
     const { data, textAlign, currency } = props;
     const [minPrice, maxPrice] = extent(data, (d) => d.price);
@@ -30,10 +25,10 @@ const VerticalChartAxis = (props) => {
     return (
         <Grid container direction='column' justify='space-between' className={classes.verticalAxis}>
             <Typography variant='body2' color='textSecondary' align={textAlign}>
-                {formatAxisPrice(maxPrice, currency)}
+                {formatCurrency(maxPrice, currency)}
             </Typography>
             <Typography variant='body2' color='textSecondary' align={textAlign}>
-                {formatAxisPrice(minPrice, currency)}
+                {formatCurrency(minPrice, currency)}
             </Typography>
         </Grid>
     );
