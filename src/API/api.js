@@ -20,13 +20,16 @@ const fetchPriceHistory = async (coin, currency = 'USD', duration = 'DAY') => {
 const fetchSpotPrice = async (coin, currency = 'USD') => {
     const url = `https://api.coinbase.com/v2/prices/${currency}/spot?`;
     const { data } = await axios(url);
-    const formattedSpotPrices = data.data
+    let formattedSpotPrices = { keys: COINS.keys };
+
+    data.data
         .filter((item) => COINS.keys.indexOf(item.base) >= 0)
-        .map((item) => ({
-            [item.base]: {
+        .forEach((item) => {
+            formattedSpotPrices[item.base] = {
                 price: +item.amount
-            }
-        }));
+            };
+        });
+
     return formattedSpotPrices;
 };
 

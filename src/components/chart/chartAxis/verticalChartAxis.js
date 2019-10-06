@@ -9,8 +9,8 @@ import { formatCurrency } from '../../../utils/formatCurrency';
 
 const useStyles = makeStyles(({ spacing }) => ({
     verticalAxis: {
-        paddingTop: spacing(0.5),
-        paddingBottom: spacing(0.5),
+        paddingTop: spacing(1.5),
+        paddingBottom: spacing(1.5),
         width: 'auto',
         height: '100%',
         minWidth: spacing(6)

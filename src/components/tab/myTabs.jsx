@@ -37,10 +37,6 @@ const useTabStyles = makeStyles(({ palette, breakpoints }) => ({
     },
     wrapper: {
         textTransform: 'none'
-        /*         fontSize: 15,
-        fontWeight: 700,
-        whiteSpace: 'nowrap',
-        color: palette.text.secondary */
     }
 }));
 

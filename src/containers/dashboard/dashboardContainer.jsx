@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import withWidth from '@material-ui/core/withWidth';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Tabbar from './tab/tabBar';
-import { Skeleton } from '@material-ui/lab';
 import { fetchPriceHistory, fetchSpotPrice } from '../../API/api';
 import { setHistoryData, APP_STATE, setLastTimestamp, setSpotData } from '../../Redux/actions';
 import ChartsContainer from './charts/chartsContainer';
+import PriceTableContainer from '../priceTable/priceTableContainer';
 
 const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
     root: {
@@ -23,7 +22,9 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
         width: '90vw'
     },
     charts: {
-        padding: spacing(4)
+        paddingLeft: spacing(4),
+        paddingRight: spacing(4),
+        paddingBottom: spacing(4)
     }
 }));
 
@@ -32,8 +33,12 @@ const DashboardContainer = (props) => {
         currentCoin,
         currentDuration,
         currentCurrency,
+        priceHistory,
+        spotPrices,
         setHistoryData,
         setSpotData,
+        spotTimestamp,
+        lastTimestamp,
         width
     } = props;
 
@@ -56,17 +61,18 @@ const DashboardContainer = (props) => {
         <Paper className={classes.root}>
             <Tabbar />
             <div className={classes.charts}>
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={125} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={125} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Skeleton disableAnimate={true} height={125} />
-                    </Grid>
-                </Grid>
+                <PriceTableContainer
+                    spotPrices={spotPrices}
+                    {...{
+                        spotTimestamp,
+                        lastTimestamp,
+                        priceHistory,
+                        spotPrices,
+                        currentCoin,
+                        currentCurrency,
+                        currentDuration
+                    }}
+                />
                 <ChartsContainer height={'250px'} />
             </div>
         </Paper>
@@ -76,7 +82,11 @@ const DashboardContainer = (props) => {
 const mapStateToProps = (state) => ({
     currentCoin: state[APP_STATE].currentCoin,
     currentDuration: state[APP_STATE].currentDuration,
-    currentCurrency: state[APP_STATE].currentCurrency
+    currentCurrency: state[APP_STATE].currentCurrency,
+    priceHistory: state[APP_STATE].priceHistory,
+    spotPrices: state[APP_STATE].spotPrices,
+    spotTimestamp: state[APP_STATE].spotTimestamp,
+    lastTimestamp: state[APP_STATE].lastTimestamp
 });
 
 export default connect(
