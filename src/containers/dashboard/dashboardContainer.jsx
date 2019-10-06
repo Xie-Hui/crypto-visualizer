@@ -7,8 +7,8 @@ import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Tabbar from './tab/tabBar';
 import { Skeleton } from '@material-ui/lab';
-import { fetchPriceHistory } from '../../API/api';
-import { setHistoryData, APP_STATE, setLastTimestamp } from '../../Redux/actions';
+import { fetchPriceHistory, fetchSpotPrice } from '../../API/api';
+import { setHistoryData, APP_STATE, setLastTimestamp, setSpotData } from '../../Redux/actions';
 import ChartsContainer from './charts/chartsContainer';
 
 const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
@@ -28,12 +28,24 @@ const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
 }));
 
 const DashboardContainer = (props) => {
-    const { currentCoin, currentDuration, currentCurrency, setHistoryData, width } = props;
+    const {
+        currentCoin,
+        currentDuration,
+        currentCurrency,
+        setHistoryData,
+        setSpotData,
+        width
+    } = props;
 
     useEffect(() => {
         fetchPriceHistory(currentCoin, currentCurrency, currentDuration)
             .then((data) => {
                 setHistoryData(data);
+            })
+            .catch((error) => console.log(error));
+        fetchSpotPrice(currentCoin, currentCurrency)
+            .then((spotPrices) => {
+                setSpotData(spotPrices);
             })
             .catch((error) => console.log(error));
     }, [currentCoin, currentDuration, currentCurrency, setHistoryData]);
@@ -73,6 +85,7 @@ export default connect(
     mapStateToProps,
     {
         setHistoryData,
+        setSpotData,
         setLastTimestamp
     }
 )(withWidth()(DashboardContainer));
