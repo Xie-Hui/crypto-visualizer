@@ -12,12 +12,14 @@ const useTabsStyles = makeStyles((theme) => ({
     }
 }));
 
-const useTabStyles = makeStyles(({ palette, breakpoints }) => ({
+const useTabStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     root: {
         minHeight: 53,
-        minWidth: 10,
+        minWidth: 30,
+        paddingLeft: spacing(1.5),
+        paddingRight: spacing(1.5),
         [breakpoints.up('md')]: {
-            minWidth: 40
+            minWidth: 20
         },
         '&:hover': {
             backgroundColor: 'rgba(29, 161, 242, 0.1)',
@@ -45,7 +47,7 @@ const MyTabs = ({ tabs, tabProps, ...props }) => {
     const tabClasses = useTabStyles(tabProps);
     return (
         <Fragment>
-            <Tabs variant={'fullWidth'} {...props} classes={tabsClasses}>
+            <Tabs {...props} classes={tabsClasses}>
                 {tabs.map((tab) => (
                     <Tab
                         key={tab.name}

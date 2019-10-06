@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, useCallback } from 'react';
+import React, { useLayoutEffect, useRef, useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { APP_STATE } from '../../../Redux/actions';
 
@@ -13,6 +13,7 @@ import { extent, scaleLinear } from 'd3';
 import { formatCurrency } from '../../../utils/formatCurrency';
 import HoverPrice from '../../../components/hoverPrice/hoverPrice';
 import Cursor from '../../../components/hoverPrice/cursor';
+import { useMouseMove } from '../../../utils/customHooks';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
     root: {
@@ -47,11 +48,12 @@ const ChartsContainer = (props) => {
 
     const handleResize = useCallback(() => {
         console.log('handleResize!');
-        const { height, width, left } = chartSvgComponentRef.current.getBoundingClientRect();
+        const { height, width, left, right } = chartSvgComponentRef.current.getBoundingClientRect();
         const dimensions = {
             height: Math.round(height),
             width: Math.round(width),
-            left: Math.round(left)
+            left: Math.round(left),
+            right: Math.round(right)
         };
         setDimensions(dimensions);
     }, [chartSvgComponentRef]);
@@ -66,13 +68,6 @@ const ChartsContainer = (props) => {
             window.removeEventListener('resize', handleResize);
         };
     }, [handleResize]);
-
-    const showHoverElement = () => {
-        setHoverState({
-            ...hoverState,
-            hovered: true
-        });
-    };
 
     const hideHoverElement = () => {
         setHoverState({
@@ -106,6 +101,16 @@ const ChartsContainer = (props) => {
         }
     };
 
+    const [x, y] = useMouseMove();
+
+    useEffect(() => {
+        if (x >= dimensions.left && x <= dimensions.right) {
+            updateHoverPosition({ clientX: x });
+        } else {
+            hideHoverElement();
+        }
+    }, [x, dimensions]);
+
     const { hovered, hoveredValue, hoverX, hoverY } = hoverState;
     return (
         <div className={classes.root}>
@@ -118,9 +123,7 @@ const ChartsContainer = (props) => {
                     className={classes.priceChart}
                     height={height}
                     style={{ height: height }}
-                    onMouseEnter={(e) => showHoverElement(e)}
-                    onMouseLeave={(e) => hideHoverElement(e)}
-                    onMouseMove={(e) => updateHoverPosition(e)}
+                    //onMouseMove={(e) => updateHoverPosition(e)}
                 >
                     <HoverPrice
                         top

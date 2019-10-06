@@ -17,11 +17,11 @@ const Tabbar = () => {
     const classes = useTabbarStyles();
     return (
         <Grid container justify='space-between' className={classes.root}>
-            <Grid item xs={6}>
+            <Grid item>
                 <CoinTabsContainer />
             </Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={4}>
+            <Grid item xs></Grid>
+            <Grid item>
                 <TimeTabsContainer />
             </Grid>
         </Grid>
