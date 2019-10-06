@@ -15,6 +15,9 @@ import HoverPrice from '../../../components/hoverPrice/hoverPrice';
 import Cursor from '../../../components/hoverPrice/cursor';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
+    root: {
+        width: '100%'
+    },
     topSection: {
         borderBottom: `1px solid ${palette.grey[200]}`
     },
@@ -105,7 +108,7 @@ const ChartsContainer = (props) => {
 
     const { hovered, hoveredValue, hoverX, hoverY } = hoverState;
     return (
-        <div>
+        <div className={classes.root}>
             <Grid className={classes.topSection} container direction='row' wrap='nowrap'>
                 <Grid item>
                     <VerticalChartAxis data={data} currency={currentCurrency} textAlign='right' />

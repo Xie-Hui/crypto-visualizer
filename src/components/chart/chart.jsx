@@ -55,6 +55,7 @@ const Chart = React.memo((props) => {
     const { color, data, height, width, timestamp } = props;
     const prevData = usePrevious(data) || data; // previous data, default to current data if not exist
     const prevColor = usePrevious(color) || color;
+    const prevWidth = usePrevious(width);
     const targetRef = useRef();
     useEffect(() => {
         if (height && width && timestamp && color) {
@@ -68,11 +69,18 @@ const Chart = React.memo((props) => {
                 .y((d) => d.price);
 
             const scaledData = scaleData(data, height, width);
-            const prevScaledData = scaleData(prevData, height, width);
+            const prevScaledData =
+                prevData.length > 0
+                    ? scaleData(prevData, height, width)
+                    : scaledData.map(({ time }) => ({ price: height, time })); // initial render animation, we want the graph to shoot up from bottom
+
             const areaChart = area(scaledData);
             const lineChart = line(scaledData);
             const prevAreaChart = area(prevScaledData);
             const prevLineChart = line(prevScaledData);
+
+            const transitionDuration = width !== prevWidth ? 0 : TRANSITION.duration;
+
             // clear up
             chart.selectAll('path').remove();
 
@@ -83,7 +91,7 @@ const Chart = React.memo((props) => {
                 .style('fill', prevColor.fill)
                 // transition
                 .transition()
-                .duration(TRANSITION.duration)
+                .duration(transitionDuration)
                 .ease(TRANSITION.ease)
                 .attrTween('d', () => interpolatePath(prevAreaChart, areaChart))
                 .style('fill', color.fill);
@@ -96,7 +104,7 @@ const Chart = React.memo((props) => {
                 .style('stroke-width', '2px')
                 // transition
                 .transition()
-                .duration(TRANSITION.duration)
+                .duration(transitionDuration)
                 .ease(TRANSITION.ease)
                 .attrTween('d', () => interpolatePath(prevLineChart, lineChart))
                 .style('stroke', color.stroke);
