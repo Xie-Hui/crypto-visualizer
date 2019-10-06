@@ -20,10 +20,9 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     },
     priceChart: {
         cursor: 'crosshair',
-        height: (props) => props.height,
         width: '100%',
-        paddingRight: spacing(1),
-        paddingLeft: spacing(1),
+        marginRight: spacing(1),
+        marginLeft: spacing(1),
         width: '100%',
         position: 'relative',
         width: '100%',
@@ -35,9 +34,13 @@ const ChartsContainer = (props) => {
     const { data, currentCoin, lastTimestamp, height, currentCurrency, duration } = props;
     const chartSvgComponentRef = useRef(null);
     const [dimensions, setDimensions] = useState({});
-    const [hoverState, setHoverState] = useState({});
+    const [hoverState, setHoverState] = useState({
+        hoverX: 0,
+        hoverY: 0,
+        visible: false
+    });
 
-    const classes = useStyles({ height });
+    const classes = useStyles();
 
     const handleResize = useCallback(() => {
         console.log('handleResize!');
@@ -59,7 +62,7 @@ const ChartsContainer = (props) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [chartSvgComponentRef.current]);
+    }, [handleResize]);
 
     const showHoverElement = () => {
         setHoverState({
@@ -79,8 +82,8 @@ const ChartsContainer = (props) => {
         .range([dimensions.height - CHART_PADDING_BOTTOM, CHART_PADDING_TOP])
         .domain(extent(data, (d) => d.price));
 
-    const updateHoverPosition = (e) => {
-        const hoverX = e.nativeEvent.clientX - dimensions.left;
+    const updateHoverPosition = ({ clientX }) => {
+        const hoverX = clientX - dimensions.left;
         const index = Math.round((hoverX / dimensions.width) * (data.length - 1));
         const hoveredDataPoint = data[index] || {};
         const hoveredValue = {
@@ -89,13 +92,8 @@ const ChartsContainer = (props) => {
             time: hoveredDataPoint.time && hoveredDataPoint.time.toLocaleString()
         };
 
-        const hoverY = scalePriceToY(hoveredDataPoint.price) || 0;
-
-        console.log('hovered: ', hoverState.hovered);
-        console.log('cursor position: ', hoverX, hoverY);
-        const { hoverX: prevX, hoverY: prevY } = hoverState;
-        console.log('current, prev: ', hoverX, prevX);
-        if (!prevX || !prevY || Math.abs(hoverX - prevX) > 10 || Math.abs(hoverY - prevY) > 10) {
+        const hoverY = scalePriceToY(hoveredDataPoint.price);
+        if (hoverX && hoverY) {
             setHoverState({
                 hovered: Boolean(hoveredDataPoint),
                 hoveredValue,
@@ -112,7 +110,15 @@ const ChartsContainer = (props) => {
                 <Grid item>
                     <VerticalChartAxis data={data} currency={currentCurrency} textAlign='right' />
                 </Grid>
-                <Grid item className={classes.priceChart} height={height}>
+                <Grid
+                    item
+                    className={classes.priceChart}
+                    height={height}
+                    style={{ height: height }}
+                    onMouseEnter={(e) => showHoverElement(e)}
+                    onMouseLeave={(e) => hideHoverElement(e)}
+                    onMouseMove={(e) => updateHoverPosition(e)}
+                >
                     <HoverPrice
                         top
                         value={hoveredValue && hoveredValue.price}
@@ -125,13 +131,7 @@ const ChartsContainer = (props) => {
                         visible={hovered}
                         x={hoverX}
                     />
-                    <svg
-                        ref={chartSvgComponentRef}
-                        style={{ width: '100%', height: '100%' }}
-                        onMouseEnter={showHoverElement}
-                        onMouseLeave={hideHoverElement}
-                        onMouseMove={updateHoverPosition}
-                    >
+                    <svg ref={chartSvgComponentRef} style={{ width: '100%', height: '100%' }}>
                         <Chart
                             color={{
                                 fill: COINS[currentCoin].fillColor,

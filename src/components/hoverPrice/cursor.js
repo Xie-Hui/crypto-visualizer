@@ -6,8 +6,7 @@ const CURSOR_RADIUS_SIZE = 4;
 const useStyles = makeStyles(({ palette }) => ({
     root: {
         zIndex: 2,
-        transition: 'opacity 300ms',
-        opacity: ({ visible }) => (visible ? 1 : 0)
+        transition: 'opacity 300ms'
     },
     line: {
         stroke: palette.primary.main,
@@ -21,10 +20,10 @@ const useStyles = makeStyles(({ palette }) => ({
 }));
 
 const Cursor = ({ height, visible, x, y }) => {
-    const classes = useStyles({ height, visible, x, y });
+    const classes = useStyles();
 
     return (
-        <g className={classes.root}>
+        <g className={classes.root} style={{ opacity: visible ? 1 : 0 }}>
             <line className={classes.line} x1={x} x2={x} y1={0} y2={height} />
             <circle className={classes.circle} cx={x} cy={y} r={CURSOR_RADIUS_SIZE} />
         </g>

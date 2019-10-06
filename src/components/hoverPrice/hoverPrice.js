@@ -6,37 +6,48 @@ const VERTICAL_OFFSET = -12;
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
     root: {
-        bottom: ({ bottom }) => bottom && VERTICAL_OFFSET,
-        left: ({ x }) => x - HOVER_PRICE_WIDTH / 2,
-        top: ({ top }) => top && VERTICAL_OFFSET,
-        transition: 'opacity 300ms',
-        opacity: ({ visible }) => (visible ? 1 : 0),
         display: 'flex',
         justifyContent: 'center',
         position: 'absolute',
-        width: '200px'
+        width: `${HOVER_PRICE_WIDTH}px`
     },
     priceWrapper: {
         borderRadius: spacing(0.5),
         paddingTop: spacing(0.2),
-        paddingDown: spacing(0.2),
+        paddingBottom: spacing(0.2),
         paddingLeft: spacing(0.5),
-        paddingRight: spacing(0.5),
-        background: ({ top }) => (top ? palette.primary.main : '#fff'),
-        border: ({ top }) => (top ? 'none' : `1px solid ${palette.primary.main}`),
-        color: ({ top }) => (top ? '#fff' : palette.primary.main)
+        paddingRight: spacing(0.5)
+    },
+    top: {
+        background: palette.primary.main,
+        border: 'none',
+        color: '#fff'
+    },
+    bottom: {
+        background: '#fff',
+        border: `1px solid ${palette.primary.main}`,
+        color: palette.primary.main
     }
 }));
 
 const HoverPrice = (props) => {
-    const { value } = props;
-    const classes = useStyles(props);
-
+    const { bottom, top, x, value, visible } = props;
+    const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <div className={classes.priceWrapper}>{value}</div>
+        <div
+            className={classes.root}
+            style={{
+                bottom: bottom && VERTICAL_OFFSET,
+                left: x - HOVER_PRICE_WIDTH / 2,
+                top: top && VERTICAL_OFFSET,
+                opacity: visible ? 1 : 0,
+                transition: 'opacity 300ms'
+            }}
+        >
+            <div className={`${classes.priceWrapper} ${top ? classes.top : classes.bottom}`}>
+                {value}
+            </div>
         </div>
     );
 };
-
 export default HoverPrice;

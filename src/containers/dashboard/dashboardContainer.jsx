@@ -36,7 +36,7 @@ const DashboardContainer = (props) => {
                 setHistoryData(data);
             })
             .catch((error) => console.log(error));
-    }, [currentCoin, currentDuration, currentCurrency]);
+    }, [currentCoin, currentDuration, currentCurrency, setHistoryData]);
 
     const classes = useDashboardStyles();
 

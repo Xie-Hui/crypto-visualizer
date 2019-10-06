@@ -31,12 +31,31 @@ const scaleData = (data, height, width) => {
     }));
 };
 
-const Chart = (props) => {
+// re-render compare function
+const shouldUpdate = (prevProps, nextProps) => {
+    const {
+        color: prevColor,
+        height: prevHeight,
+        width: prevWidth,
+        timestamp: prevTimestamp
+    } = prevProps;
+    const { color, height, width, timestamp } = nextProps;
+    if (
+        prevColor.fill !== color.fill ||
+        prevHeight !== height ||
+        prevWidth !== width ||
+        prevTimestamp !== timestamp
+    ) {
+        return false;
+    }
+    return true;
+};
+
+const Chart = React.memo((props) => {
     const { color, data, height, width, timestamp } = props;
     const prevData = usePrevious(data) || data; // previous data, default to current data if not exist
     const prevColor = usePrevious(color) || color;
     const targetRef = useRef();
-
     useEffect(() => {
         if (height && width && timestamp && color) {
             const chart = select(targetRef.current);
@@ -82,9 +101,9 @@ const Chart = (props) => {
                 .attrTween('d', () => interpolatePath(prevLineChart, lineChart))
                 .style('stroke', color.stroke);
         }
-    }, [color, timestamp, height, width]);
+    }, [color, timestamp, height, width, data, prevColor.fill, prevColor.stroke]);
 
     return <g ref={targetRef} />;
-};
+}, shouldUpdate);
 
 export default Chart;
