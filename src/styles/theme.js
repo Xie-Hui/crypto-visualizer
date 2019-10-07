@@ -22,7 +22,7 @@ const useGlobalStyle = makeStyles((theme) => ({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#f7f8fc',
+            backgroundColor: '#f7f8fc !important',
             '-moz-osx-font-smoothing': 'grayscale',
             '-webkit-font-smoothing': 'antialiased'
         },
