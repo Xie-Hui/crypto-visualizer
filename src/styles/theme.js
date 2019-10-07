@@ -1,8 +1,7 @@
 import { createMuiTheme } from '@material-ui/core';
-
+import { makeStyles } from '@material-ui/styles';
 // global style
-
-const globalStyle = (theme) => ({
+const useGlobalStyle = makeStyles((theme) => ({
     '@global': {
         html: {
             boxSizing: 'border-box'
@@ -23,7 +22,6 @@ const globalStyle = (theme) => ({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            //backgroundColor: theme.color.bg,
             '-moz-osx-font-smoothing': 'grayscale',
             '-webkit-font-smoothing': 'antialiased'
         },
@@ -40,7 +38,7 @@ const globalStyle = (theme) => ({
             color: theme.color.text
         }
     }
-});
+}));
 
 /* -----------------------
  * THEME
@@ -62,4 +60,4 @@ const appTheme = createMuiTheme({
     }
 });
 
-export { globalStyle, appTheme };
+export { useGlobalStyle, appTheme };

@@ -6,7 +6,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const useStyles = makeStyles(({ spacing }) => ({
     root: {
-        margin: spacing(4),
+        marginTop: spacing(4),
         width: '100%'
     },
     link: {
