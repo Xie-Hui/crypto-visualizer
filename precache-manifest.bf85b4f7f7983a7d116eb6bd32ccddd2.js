@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "36348afe9b90b241ddfb5294802089c6",
+    "revision": "335b0d1a3bbf1291dc6bc6ce044a25c1",
     "url": "/crypto-visualizer/index.html"
   },
   {
@@ -1716,8 +1716,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/crypto-visualizer/static/js/99.d21ba106.chunk.js"
   },
   {
-    "revision": "773b404170113da7f09e",
-    "url": "/crypto-visualizer/static/js/main.03b281fd.chunk.js"
+    "revision": "4526cfdddcc3b9d9e15a",
+    "url": "/crypto-visualizer/static/js/main.ebeb36c5.chunk.js"
   },
   {
     "revision": "bdb10efbc8f015a41988",
