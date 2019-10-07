@@ -1,6 +1,8 @@
 # Crypto-Visualizer
+[Live Demo](https://xie-hui.github.io/crypto-currency-price-app/)
 
-A web-app for visualizing cryptocurrency prices. The [backend](https://github.com/Xie-Hui/crypto-visualizer-api) is written in go and consumes [crypto-compare](https://min-api.cryptocompare.com/) api. This project is a newer version of [crypto-currency-price-app](https://github.com/Xie-Hui/crypto-currency-price-app).
+
+A web-app for visualizing cryptocurrency prices. The [backend](https://github.com/Xie-Hui/crypto-visualizer-api) is written in go and consumes [coinbase api](https://developers.coinbase.com/api/v2) api. This project is a newer version of [crypto-currency-price-app](https://github.com/Xie-Hui/crypto-currency-price-app).
 
 ## Usage
 
