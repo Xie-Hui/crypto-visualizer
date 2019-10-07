@@ -1,2 +1,0 @@
-(window["webpackJsonpcrypto-visualizer"]=window["webpackJsonpcrypto-visualizer"]||[]).push([[194],{310:function(i,p,s){i.exports=s.p+"static/media/ignis.a8411f9d.svg"}}]);
-//# sourceMappingURL=194.baf48eef.chunk.js.map

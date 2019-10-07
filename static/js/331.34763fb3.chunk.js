@@ -1,2 +1,0 @@
-(window["webpackJsonpcrypto-visualizer"]=window["webpackJsonpcrypto-visualizer"]||[]).push([[331],{447:function(s,i,p){s.exports=p.p+"static/media/sngls.71e23711.svg"}}]);
-//# sourceMappingURL=331.34763fb3.chunk.js.map

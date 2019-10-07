@@ -1,2 +1,0 @@
-(window["webpackJsonpcrypto-visualizer"]=window["webpackJsonpcrypto-visualizer"]||[]).push([[4],{120:function(i,p,c){i.exports=c.p+"static/media/0xbtc.ca90430d.svg"}}]);
-//# sourceMappingURL=4.8d05c572.chunk.js.map

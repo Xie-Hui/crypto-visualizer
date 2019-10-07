@@ -1,1 +1,0 @@
-{"version":3,"sources":["../node_modules/cryptocurrency-icons/svg/color/xmcc.svg"],"names":["module","exports"],"mappings":"uHAAAA,EAAOC,QAAU,IAA0B","file":"static/js/404.0a6dbd6e.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/xmcc.51b536e6.svg\";"],"sourceRoot":""}

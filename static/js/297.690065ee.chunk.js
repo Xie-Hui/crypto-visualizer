@@ -1,2 +1,0 @@
-(window["webpackJsonpcrypto-visualizer"]=window["webpackJsonpcrypto-visualizer"]||[]).push([[297],{413:function(i,p,a){i.exports=a.p+"static/media/qiwi.f8f3feaa.svg"}}]);
-//# sourceMappingURL=297.690065ee.chunk.js.map
