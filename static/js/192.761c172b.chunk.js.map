@@ -1,0 +1,1 @@
+{"version":3,"sources":["../node_modules/cryptocurrency-icons/svg/color/icn.svg"],"names":["module","exports"],"mappings":"uHAAAA,EAAOC,QAAU,IAA0B","file":"static/js/192.761c172b.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/icn.db897f35.svg\";"],"sourceRoot":""}

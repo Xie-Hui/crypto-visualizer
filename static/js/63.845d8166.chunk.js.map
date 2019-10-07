@@ -1,0 +1,1 @@
+{"version":3,"sources":["../node_modules/cryptocurrency-icons/svg/color/btc.svg"],"names":["module","exports"],"mappings":"sHAAAA,EAAOC,QAAU,IAA0B","file":"static/js/63.845d8166.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/btc.e73cb1b2.svg\";"],"sourceRoot":""}

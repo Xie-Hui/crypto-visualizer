@@ -1,0 +1,1 @@
+{"version":3,"sources":["../node_modules/cryptocurrency-icons/svg/color/game.svg"],"names":["module","exports"],"mappings":"uHAAAA,EAAOC,QAAU,IAA0B","file":"static/js/162.5ba3f722.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/game.c7f135f8.svg\";"],"sourceRoot":""}
