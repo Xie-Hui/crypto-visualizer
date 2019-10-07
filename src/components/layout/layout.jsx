@@ -8,6 +8,7 @@ import { APP_STATE } from '../../Redux/actions';
 import { fetchCoinIcon } from '../../API/api';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { default as defaultIcon } from 'cryptocurrency-icons/svg/color/generic.svg';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
     ...globalStyle(theme)
@@ -21,10 +22,8 @@ const Layout = (props) => {
     const coinPrice = formatCurrency(spotPrice, currency, 2);
 
     useEffect(() => {
-        console.log(coin);
         fetchCoinIcon(coin)
             .then((icon) => {
-                console.log(icon);
                 setIcon(icon);
             })
             .catch((error) => console.log(error));
@@ -38,6 +37,7 @@ const Layout = (props) => {
                 <link rel='shortcut icon' href={icon} />
             </Helmet>
             <div className={globalStyles}>{props.children}</div>
+            <Footer />
         </Fragment>
     );
 };

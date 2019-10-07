@@ -23,6 +23,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [x] Solve the hover ui slow issues
 - [x] Spot data fetching
 - [x] Price Table UI/UX
-- [ ] 
-- [ ] Overall Cleanups
+- [x] Overall Cleanups
 

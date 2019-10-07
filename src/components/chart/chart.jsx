@@ -109,7 +109,17 @@ const Chart = React.memo((props) => {
                 .attrTween('d', () => interpolatePath(prevLineChart, lineChart))
                 .style('stroke', color.stroke);
         }
-    }, [color, timestamp, height, width, data, prevColor.fill, prevColor.stroke]);
+    }, [
+        color,
+        timestamp,
+        height,
+        width,
+        data,
+        prevColor.fill,
+        prevColor.stroke,
+        prevData,
+        prevWidth
+    ]);
 
     return <g ref={targetRef} />;
 }, shouldUpdate);

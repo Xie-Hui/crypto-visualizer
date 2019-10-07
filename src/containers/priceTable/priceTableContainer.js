@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
 import PriceTableCell from './priceTableCell';
 import { COINS, DURATIONS } from '../../constants/constants';
 import { makeStyles } from '@material-ui/styles';
@@ -40,7 +39,6 @@ const PriceTableContainer = React.memo((props) => {
     return (
         <Grid container className={classes.root}>
             <Grid item xs={4}>
-                {/* <Skeleton disableAnimate={true} height={125} /> */}
                 <PriceTableCell
                     label={`${COINS[currentCoin].name} price`}
                     currency={currentCurrency}

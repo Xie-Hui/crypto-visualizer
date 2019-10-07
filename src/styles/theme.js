@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core';
-import blue from '@material-ui/core/colors/blue';
 
 // global style
 
@@ -35,6 +34,10 @@ const globalStyle = (theme) => ({
             display: 'flex',
             flexDirection: 'column',
             flex: [1, 1, '100%']
+        },
+        a: {
+            textDecoration: 'none',
+            color: theme.color.text
         }
     }
 });

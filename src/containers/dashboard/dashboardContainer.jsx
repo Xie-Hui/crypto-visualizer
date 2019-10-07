@@ -39,8 +39,7 @@ const DashboardContainer = (props) => {
         setHistoryData,
         setSpotData,
         spotTimestamp,
-        lastTimestamp,
-        width
+        lastTimestamp
     } = props;
 
     const fetchPriceData = () => {

@@ -27,9 +27,7 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
         width: '100%',
         marginRight: spacing(1),
         marginLeft: spacing(1),
-        width: '100%',
         position: 'relative',
-        width: '100%',
         zIndex: '10'
     }
 }));
@@ -47,7 +45,6 @@ const ChartsContainer = (props) => {
     const classes = useStyles();
 
     const handleResize = useCallback(() => {
-        console.log('handleResize!');
         const { height, width, left, right } = chartSvgComponentRef.current.getBoundingClientRect();
         const dimensions = {
             height: Math.round(height),
@@ -101,7 +98,7 @@ const ChartsContainer = (props) => {
         }
     };
 
-    const [x, y] = useMouseMove();
+    const [x] = useMouseMove();
 
     useEffect(() => {
         if (x >= dimensions.left && x <= dimensions.right) {
