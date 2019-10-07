@@ -31,7 +31,7 @@ const Footer = () => {
                 <Link href='http://hui-xie.com'>Hui Xie</Link>
                 {` ⋅ `}
                 <FontAwesomeIcon icon={faGithub} style={{ marginRight: '6px' }} />
-                <Link href='https://github.com/Xie-Hui/'>Github</Link>
+                <Link href='https://github.com/Xie-Hui/crypto-visualizer'>Github</Link>
             </Typography>
         </footer>
     );

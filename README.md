@@ -24,4 +24,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [x] Spot data fetching
 - [x] Price Table UI/UX
 - [x] Overall Cleanups
+- [x] deploy to gitpage
 
