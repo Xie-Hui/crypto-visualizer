@@ -18,7 +18,7 @@ const Layout = (props) => {
     const globalStyles = useStyles();
     const { coin, spotPrices, currency } = props;
     const spotPrice = spotPrices[coin] && spotPrices[coin].price;
-    const coinPrice = formatCurrency(spotPrice, currency);
+    const coinPrice = formatCurrency(spotPrice, currency, 2);
 
     useEffect(() => {
         console.log(coin);

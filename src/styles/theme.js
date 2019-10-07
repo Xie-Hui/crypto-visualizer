@@ -24,7 +24,7 @@ const globalStyle = (theme) => ({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: theme.color.bg,
+            //backgroundColor: theme.color.bg,
             '-moz-osx-font-smoothing': 'grayscale',
             '-webkit-font-smoothing': 'antialiased'
         },
@@ -44,7 +44,13 @@ const globalStyle = (theme) => ({
  * --------------------- */
 const appTheme = createMuiTheme({
     palette: {
-        primary: blue
+        primary: { main: '#3f51b5' },
+        text: {
+            primary: 'rgba(32, 41, 91, 0.87)',
+            secondary: 'rgba(32, 41, 91, 0.54)',
+            disabled: 'rgba(32, 41, 91, 0.38)',
+            hint: 'rgba(32, 41, 91, 0.38)'
+        }
     },
     color: {
         bg: '#eee',

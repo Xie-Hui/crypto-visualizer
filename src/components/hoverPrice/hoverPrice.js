@@ -19,14 +19,14 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
         paddingRight: spacing(0.5)
     },
     top: {
-        background: palette.primary.main,
+        background: palette.text.secondary,
         border: 'none',
         color: '#fff'
     },
     bottom: {
         background: '#fff',
-        border: `1px solid ${palette.primary.main}`,
-        color: palette.primary.main
+        border: `1px solid ${palette.text.secondary}`,
+        color: palette.text.secondary
     }
 }));
 

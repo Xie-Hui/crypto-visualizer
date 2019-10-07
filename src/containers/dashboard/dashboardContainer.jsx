@@ -9,6 +9,7 @@ import { fetchPriceHistory, fetchSpotPrice } from '../../API/api';
 import { setHistoryData, APP_STATE, setLastTimestamp, setSpotData } from '../../Redux/actions';
 import ChartsContainer from './charts/chartsContainer';
 import PriceTableContainer from '../priceTable/priceTableContainer';
+import { POLL_FREQUENCY } from '../../constants/constants';
 
 const useDashboardStyles = makeStyles(({ palette, spacing }) => ({
     root: {
@@ -42,7 +43,7 @@ const DashboardContainer = (props) => {
         width
     } = props;
 
-    useEffect(() => {
+    const fetchPriceData = () => {
         fetchPriceHistory(currentCoin, currentCurrency, currentDuration)
             .then((data) => {
                 setHistoryData(data);
@@ -53,6 +54,15 @@ const DashboardContainer = (props) => {
                 setSpotData(spotPrices);
             })
             .catch((error) => console.log(error));
+    };
+
+    useEffect(() => {
+        fetchPriceData();
+        //start polling
+        const pollingId = setInterval(() => {
+            fetchPriceData();
+        }, POLL_FREQUENCY);
+        return () => clearInterval(pollingId);
     }, [currentCoin, currentDuration, currentCurrency, setHistoryData]);
 
     const classes = useDashboardStyles();

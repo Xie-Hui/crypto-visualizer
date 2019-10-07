@@ -9,11 +9,11 @@ const useStyles = makeStyles(({ palette }) => ({
         transition: 'opacity 300ms'
     },
     line: {
-        stroke: palette.primary.main,
+        stroke: palette.text.secondary,
         strokeWidth: '0.5px'
     },
     circle: {
-        stroke: palette.primary.main,
+        stroke: palette.text.secondary,
         strokeWidth: '2px',
         fill: '#fff'
     }
@@ -24,7 +24,7 @@ const Cursor = ({ height, visible, x, y }) => {
 
     return (
         <g className={classes.root} style={{ opacity: visible ? 1 : 0 }}>
-            <line className={classes.line} x1={x} x2={x} y1={0} y2={height} />
+            <line className={classes.line} x1={x} x2={x} y1={11} y2={height} />
             <circle className={classes.circle} cx={x} cy={y} r={CURSOR_RADIUS_SIZE} />
         </g>
     );

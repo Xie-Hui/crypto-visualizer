@@ -109,7 +109,7 @@ const ChartsContainer = (props) => {
         } else {
             hideHoverElement();
         }
-    }, [x, dimensions]);
+    }, [x, lastTimestamp, dimensions]);
 
     const { hovered, hoveredValue, hoverX, hoverY } = hoverState;
     return (
