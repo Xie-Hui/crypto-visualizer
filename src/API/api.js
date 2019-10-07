@@ -33,4 +33,9 @@ const fetchSpotPrice = async (coin, currency = 'USD') => {
     return formattedSpotPrices;
 };
 
-export { fetchPriceHistory, fetchSpotPrice };
+const fetchCoinIcon = async (coin) => {
+    const iconSvg = await import(`cryptocurrency-icons/128/color/${coin.toLowerCase()}.png`);
+    return iconSvg.default;
+};
+
+export { fetchPriceHistory, fetchSpotPrice, fetchCoinIcon };
